@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* App.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Add container styling */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Add media query for mobile-first approach */
+@media (min-width: 768px) {
+  .container {
+    justify-content: space-between;
+  }
+
+  .pet-profile {
+    flex: 0 0 calc(33.333% - 16px);
+    margin: 8px;
+  }
+}
