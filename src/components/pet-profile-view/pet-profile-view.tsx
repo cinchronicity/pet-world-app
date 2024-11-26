@@ -1,77 +1,75 @@
 import React from 'react';
+import './pet-profile-view.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-interface Pet {
-  name: string;
-  image: string;
-  breed: string;
-  age: string;
-  gender: string;
-  about: string;
-  shelterName: string;
-  shelterAddress: string;
-  viewingHours: string;
-  adoptionFee: number;
-}
 
-interface PetProfileProps {
-  pet: Pet;
-}
+export const PetProfileView: React.FC = () => {
+  const pet = {
+    name: 'Buddy',
+    images: [
+    'https://res.cloudinary.com/dphjjixjs/image/upload/v1732519425/adoptme-4x3-m_yp2jaf.jpg', 
+    'https://res.cloudinary.com/dphjjixjs/image/upload/v1732519425/adoptme-4x3-m_yp2jaf.jpg', 
+    'https://res.cloudinary.com/dphjjixjs/image/upload/v1732519425/adoptme-4x3-m_yp2jaf.jpg', 
+    ],
+    breed: 'Pitbull',
+    age: '2 years',
+    gender: 'Male',
+    about:
+      'Buddy is a loving and energetic Golden Retriever looking for his forever home. He\'s great with kids and other pets, fully vaccinated, and trained.',
+    shelterName: 'Happy Paws Shelter',
+    shelterAddress: '123 Pet Street',
+    viewingHours: '9 AM - 5 PM',
+    adoptionFee: 250,
+    isAvailable: true,
+  };
 
-export const PetProfileView: React.FC<PetProfileProps> = ({ pet }) => {
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', fontFamily: 'Arial' }}>
-      <img
-        src={pet.image}
-        alt={pet.name}
-        style={{ width: '100%', borderRadius: '8px' }}
-      />
-      <div style={{ padding: '16px', backgroundColor: '#fff', borderRadius: '8px' }}>
+    <div className="pet-profile-container">
+      <Carousel>
+        {pet.images.map((image, index) => (
+          <div key={index}>
+            <img src={image} alt={`${pet.name} ${index + 1}`} />
+          </div>
+        ))}
+      </Carousel>
+      
+      <div className="pet-image-section">
+        {/* <img src={pet.images} alt={pet.name} className="pet-image" /> */}
+        <span className="like-button">❤️</span>
+      </div>
+    
+
+      <div className="pet-details">
         <h2>{pet.name}</h2>
-        <p>{`${pet.breed} • ${pet.age}`}</p>
-        <div style={{ display: 'flex', gap: '8px', margin: '8px 0' }}>
-          <span style={{ background: '#e1f7d5', padding: '4px 8px', borderRadius: '4px' }}>
-            {pet.gender}
-          </span>
-          <span style={{ background: '#ffebb5', padding: '4px 8px', borderRadius: '4px' }}>
-            Friendly
-          </span>
-          <span style={{ background: '#c9d6ff', padding: '4px 8px', borderRadius: '4px' }}>
-            Trained
-          </span>
+        <span className={`availability-badge ${pet.isAvailable ? 'available' : 'unavailable'}`}>
+          {pet.isAvailable ? 'Available' : 'Unavailable'}
+        </span>
+
+        <p className="pet-breed-age">{`${pet.breed} • ${pet.age}`}</p>
+        <div className="tags">
+          <span className="tag gender">{pet.gender}</span>
+          <span className="tag friendly">Friendly</span>
+          <span className="tag trained">Trained</span>
         </div>
         <h3>About</h3>
-        <p>{pet.about}</p>
-        <ul>
-          <li>Shelter: {pet.shelterName}, {pet.shelterAddress}</li>
-          <li>Available: {pet.viewingHours}</li>
-          <li>Adoption Fee: ${pet.adoptionFee}</li>
+        <p className="pet-about">{pet.about}</p>
+        <ul className="pet-info">
+          <li>
+            <strong>Shelter:</strong> {pet.shelterName}, {pet.shelterAddress}
+          </li>
+          <li>
+            <strong>Viewing Hours:</strong> {pet.viewingHours}
+          </li>
+          <li>
+            <strong>Adoption Fee:</strong> ${pet.adoptionFee}
+          </li>
         </ul>
-        <div style={{ marginTop: '16px' }}>
-          <button
-            style={{
-              width: '100%',
-              padding: '12px',
-              backgroundColor: '#6c63ff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-            onClick={() => alert('Calling shelter...')}
-          >
+        <div className="contact-shelter">
+          <button className="contact-button call" onClick={() => alert('Calling shelter...')}>
             Call Shelter
           </button>
-          <button
-            style={{
-              width: '100%',
-              padding: '12px',
-              marginTop: '8px',
-              border: '1px solid #6c63ff',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-            onClick={() => alert('Emailing shelter...')}
-          >
+          <button className="contact-button email" onClick={() => alert('Emailing shelter...')}>
             Email Shelter
           </button>
         </div>
